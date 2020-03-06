@@ -1,5 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './App'
+import Board from './components/board'
 
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(<Board />, document.getElementById('root'))
