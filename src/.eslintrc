@@ -4,6 +4,7 @@
     // "no-console": false,
     "semi": ["error", "never"],
     "prettier/prettier": [
+      "error",
       {
         "trailingComma": "es5",
         "singleQuote": true,
