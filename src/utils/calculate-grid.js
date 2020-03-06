@@ -1,21 +1,26 @@
+// @flow
 import _ from 'lodash'
-import { ROWS_QUANTITY, COLS_QUANTITY, NEIGHBOURS } from '../constants'
+import { NEIGHBOURS } from '../constants'
 
-export const createInitialGrid = () =>
-  Array.from({ length: ROWS_QUANTITY }).map(() =>
-    Array.from({ length: COLS_QUANTITY }).map(
-      () => Math.round(Math.random()) === 1
-    )
-  )
+type gridType = Array<Array<boolean>>
 
-export const getAliveNeighboursQuantity = (rowIndex, cellIndex, grid) =>
+export const getAliveNeighboursQuantity = (
+  rowIndex: number,
+  cellIndex: number,
+  grid: gridType
+): number =>
   NEIGHBOURS.reduce(
     (acc, [dX, dY]) =>
       acc + Number(_.get(grid, `[${rowIndex + dX}][${cellIndex + dY}]`, false)),
     0
   )
 
-export const shouldCellLive = (cell, rowIndex, cellIndex, grid) => {
+export const shouldCellLive = (
+  cell: boolean,
+  rowIndex: number,
+  cellIndex: number,
+  grid: gridType
+): boolean => {
   const aliveNeighboursQuantity = getAliveNeighboursQuantity(
     rowIndex,
     cellIndex,
@@ -26,7 +31,7 @@ export const shouldCellLive = (cell, rowIndex, cellIndex, grid) => {
     : aliveNeighboursQuantity === 3
 }
 
-export const calculateNextGridState = grid =>
+export const calculateNextGridState = (grid: gridType): gridType =>
   grid.map((row, rowIndex) =>
     row.map((cell, cellIndex) =>
       shouldCellLive(cell, rowIndex, cellIndex, grid)

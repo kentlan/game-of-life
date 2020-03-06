@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import classNames from 'classnames'
-import { DELAY } from '../constants'
-import { createInitialGrid, calculateNextGridState } from '../utils'
+import { DELAY } from '../../constants'
+import { calculateNextGridState } from '../../utils/calculate-grid'
+import createInitialGrid from '../../utils/create-initial-grid'
 
 import './style.scss'
 
@@ -9,9 +10,12 @@ const Board = () => {
   const [grid, setGrid] = useState(createInitialGrid)
 
   useEffect(() => {
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       setGrid(calculateNextGridState(grid))
     }, DELAY)
+    return () => {
+      clearTimeout(timeoutId)
+    }
   }, [grid])
 
   return (
